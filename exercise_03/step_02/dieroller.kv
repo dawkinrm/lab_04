@@ -1,0 +1,49 @@
+#:import BoxLayout kivy.uix.boxlayout
+#:import Button kivy.uix.button
+#:import Widget kivy.uix.widget
+#:import Canvas kivy.graphics.instructions
+
+<DieResult@Widget>:
+  size: (200, 200)
+  size_hint: None, None
+  pos_hint: {'center_x': 0.5}
+
+<DieButton@Button>:
+  size: (200, 140)
+  size_hint: None, None
+  pos_hint: {"center_x": 0.5}
+  pos: self.center_x - self.size[0] / 2., self.center_y - self.size[1] / 2.
+  font_size: 20
+  background_color: (0.25, 0.5, 1, 1)
+
+<DieRoller>:
+  result: result
+
+  BoxLayout:
+    size: root.size
+    orientation: "vertical"
+    
+    DieButton:
+      text: "Roll D6"
+      pos: (root.x, root.top)
+      on_press: root.do_roll('D6'), root.update_image
+
+    DieButton:
+      text: "Roll D8"
+
+    DieButton:
+      text: "Roll D10"
+
+    DieButton:
+      text: "Roll D12"
+
+    DieResult:
+      id: result
+      canvas:
+        Color:
+          rgb: (1, 0, 0)
+
+        Rectangle:
+          size: self.size
+          pos: self.pos
+          source: "kivy-icon-512.png"
